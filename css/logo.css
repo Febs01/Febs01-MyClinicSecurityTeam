@@ -1,0 +1,55 @@
+/* Additional CSS for logo integration */
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.company-logo {
+    height: 50px;
+    max-width: 200px;
+    object-fit: contain;
+}
+
+/* Adjust header layout to accommodate logo */
+header .container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+/* RTL support for logo in Arabic mode */
+html[dir="rtl"] .logo-container {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .company-logo {
+        height: 40px;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .logo-container {
+        margin-bottom: 10px;
+    }
+    
+    html[dir="rtl"] .logo-container {
+        align-self: flex-end;
+    }
+}

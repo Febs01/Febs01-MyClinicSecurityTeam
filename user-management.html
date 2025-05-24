@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Security Department Management System</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logo.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 data-lang-en="Security Department Management System" data-lang-ar="نظام إدارة قسم الأمن">Security Department Management System</h1>
+            <div class="user-panel">
+                <span id="user-info" class="user-info"></span>
+                <button id="logout-button" class="btn btn-sm btn-outline-light" data-lang-en="Logout" data-lang-ar="تسجيل الخروج">Logout</button>
+            </div>
+            <div class="language-toggle">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="language-toggle">
+                    <label class="form-check-label" for="language-toggle" data-lang-en="Arabic" data-lang-ar="English">Arabic</label>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab" data-tab="dashboard" data-lang-en="Dashboard" data-lang-ar="لوحة التحكم">Dashboard</div>
+            <div class="tab" data-tab="daily-report" data-lang-en="Daily Report" data-lang-ar="التقرير اليومي">Daily Report</div>
+            <div class="tab" data-tab="inspection" data-lang-en="Inspection Checklist" data-lang-ar="قائمة التفتيش">Inspection Checklist</div>
+            <div class="tab active" data-tab="user-management" data-lang-en="User Management" data-lang-ar="إدارة المستخدمين">User Management</div>
+        </div>
+
+        <!-- User Management Tab -->
+        <div id="user-management" class="tab-content active">
+            <div class="form-container">
+                <h3 data-lang-en="User Management" data-lang-ar="إدارة المستخدمين">User Management</h3>
+                
+                <div class="mb-4">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#create-user-modal" data-lang-en="Create New User" data-lang-ar="إنشاء مستخدم جديد">Create New User</button>
+                </div>
+                
+                <div id="user-list">
+                    <!-- User list will be dynamically populated here -->
+                    <p class="text-muted" data-lang-en="Loading users..." data-lang-ar="جاري تحميل المستخدمين...">Loading users...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User Modal -->
+    <div class="modal" id="create-user-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-lang-en="Create New User" data-lang-ar="إنشاء مستخدم جديد">Create New User</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-user-form">
+                        <div class="form-group">
+                            <label for="new-username" data-lang-en="Username" data-lang-ar="اسم المستخدم">Username</label>
+                            <input type="text" id="new-username" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-password" data-lang-en="Password" data-lang-ar="كلمة المرور">Password</label>
+                            <input type="password" id="new-password" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-password" data-lang-en="Confirm Password" data-lang-ar="تأكيد كلمة المرور">Confirm Password</label>
+                            <input type="password" id="confirm-password" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-full-name" data-lang-en="Full Name" data-lang-ar="الاسم الكامل">Full Name</label>
+                            <input type="text" id="new-full-name" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-email" data-lang-en="Email" data-lang-ar="البريد الإلكتروني">Email</label>
+                            <input type="email" id="new-email" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new-role" data-lang-en="Role" data-lang-ar="الدور">Role</label>
+                            <select id="new-role" class="form-control">
+                                <option value="admin" data-lang-en="Admin" data-lang-ar="مدير">Admin</option>
+                                <option value="supervisor" data-lang-en="Supervisor" data-lang-ar="مشرف">Supervisor</option>
+                                <option value="regular_user" data-lang-en="Regular User" data-lang-ar="مستخدم عادي">Regular User</option>
+                            </select>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary" data-lang-en="Create User" data-lang-ar="إنشاء المستخدم">Create User</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-lang-en="Cancel" data-lang-ar="إلغاء">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal" id="edit-user-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" data-lang-en="Edit User" data-lang-ar="تعديل المستخدم">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-user-form">
+                        <input type="hidden" id="edit-user-id">
+                        
+                        <div class="form-group">
+                            <label for="edit-username" data-lang-en="Username" data-lang-ar="اسم المستخدم">Username</label>
+                            <input type="text" id="edit-username" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-password" data-lang-en="Password" data-lang-ar="كلمة المرور">Password</label>
+                            <input type="password" id="edit-password" class="form-control" placeholder="Leave blank to keep current password">
+                            <small class="form-text text-muted" data-lang-en="Leave blank to keep current password" data-lang-ar="اتركه فارغًا للاحتفاظ بكلمة المرور الحالية">Leave blank to keep current password</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-full-name" data-lang-en="Full Name" data-lang-ar="الاسم الكامل">Full Name</label>
+                            <input type="text" id="edit-full-name" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-email" data-lang-en="Email" data-lang-ar="البريد الإلكتروني">Email</label>
+                            <input type="email" id="edit-email" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-role" data-lang-en="Role" data-lang-ar="الدور">Role</label>
+                            <select id="edit-role" class="form-control">
+                                <option value="super_admin" data-lang-en="Super Admin" data-lang-ar="مدير النظام">Super Admin</option>
+                                <option value="admin" data-lang-en="Admin" data-lang-ar="مدير">Admin</option>
+                                <option value="supervisor" data-lang-en="Supervisor" data-lang-ar="مشرف">Supervisor</option>
+                                <option value="regular_user" data-lang-en="Regular User" data-lang-ar="مستخدم عادي">Regular User</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="edit-active">
+                            <label class="form-check-label" for="edit-active" data-lang-en="Active" data-lang-ar="نشط">Active</label>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary" data-lang-en="Save Changes" data-lang-ar="حفظ التغييرات">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-lang-en="Cancel" data-lang-ar="إلغاء">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="lib/jspdf.umd.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pdf-export.js"></script>
+    <script src="js/logo-integration.js"></script>
+    <script src="js/email-notification.js"></script>
+    <script src="js/user-management.js"></script>
+</body>
+</html>

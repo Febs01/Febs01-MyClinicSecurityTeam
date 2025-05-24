@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Department Management System</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/logo.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 data-lang-en="Security Department Management System" data-lang-ar="نظام إدارة قسم الأمن">Security Department Management System</h1>
+            <div class="user-panel">
+                <span id="user-info" class="user-info"></span>
+                <button id="logout-button" class="btn btn-sm btn-outline-light" data-lang-en="Logout" data-lang-ar="تسجيل الخروج">Logout</button>
+            </div>
+            <div class="language-toggle">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="language-toggle">
+                    <label class="form-check-label" for="language-toggle" data-lang-en="Arabic" data-lang-ar="English">Arabic</label>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard" data-lang-en="Dashboard" data-lang-ar="لوحة التحكم">Dashboard</div>
+            <div class="tab" data-tab="security-report" data-lang-en="Security Report" data-lang-ar="تقرير الأمن">Security Report</div>
+            <div class="tab" data-tab="cctv-report" data-lang-en="CCTV Report" data-lang-ar="تقرير كاميرات المراقبة">CCTV Report</div>
+            <div class="tab" data-tab="inspection" data-lang-en="Inspection Checklist" data-lang-ar="قائمة التفتيش">Inspection Checklist</div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-container">
+                        <h3 data-lang-en="Recent Security Reports" data-lang-ar="تقارير الأمن الأخيرة">Recent Security Reports</h3>
+                        <div id="recent-security-reports">
+                            <p class="text-muted" data-lang-en="No security reports yet." data-lang-ar="لا توجد تقارير أمن حتى الآن.">No security reports yet.</p>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="activateTab('security-report')" data-lang-en="Create Security Report" data-lang-ar="إنشاء تقرير أمن">Create Security Report</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-container">
+                        <h3 data-lang-en="Recent CCTV Reports" data-lang-ar="تقارير كاميرات المراقبة الأخيرة">Recent CCTV Reports</h3>
+                        <div id="recent-cctv-reports">
+                            <p class="text-muted" data-lang-en="No CCTV reports yet." data-lang-ar="لا توجد تقارير كاميرات مراقبة حتى الآن.">No CCTV reports yet.</p>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="activateTab('cctv-report')" data-lang-en="Create CCTV Report" data-lang-ar="إنشاء تقرير كاميرات مراقبة">Create CCTV Report</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-container">
+                        <h3 data-lang-en="Recent Inspections" data-lang-ar="عمليات التفتيش الأخيرة">Recent Inspections</h3>
+                        <div id="recent-inspections">
+                            <p class="text-muted" data-lang-en="No inspections yet." data-lang-ar="لا توجد عمليات تفتيش حتى الآن.">No inspections yet.</p>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="activateTab('inspection')" data-lang-en="Create New Inspection" data-lang-ar="إنشاء تفتيش جديد">Create New Inspection</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Report Tab -->
+        <div id="security-report" class="tab-content">
+            <div class="form-container">
+                <h3 data-lang-en="Security Report" data-lang-ar="تقرير الأمن">Security Report</h3>
+                <form id="security-report-form">
+                    <input type="hidden" id="security-report-type" value="security">
+                    
+                    <div class="form-group">
+                        <label for="security-report-date" data-lang-en="Date" data-lang-ar="التاريخ">Date</label>
+                        <input type="date" id="security-report-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="security-report-time" data-lang-en="Time" data-lang-ar="الوقت">Time</label>
+                        <input type="time" id="security-report-time" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="security-report-shift" data-lang-en="Shift" data-lang-ar="الوردية">Shift</label>
+                        <select id="security-report-shift" class="form-control">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="security-officer-name" data-lang-en="Security Officer" data-lang-ar="ضابط الأمن">Security Officer</label>
+                        <input type="text" id="security-officer-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="security-event-description" data-lang-en="Event Description" data-lang-ar="وصف الحدث">Event Description</label>
+                        <textarea id="security-event-description" class="form-control" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-lang-en="Fire Alarm" data-lang-ar="إنذار الحريق">Fire Alarm</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="security-fire-alarm" id="security-fire-alarm-no" value="no" checked>
+                            <label class="form-check-label" for="security-fire-alarm-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="security-fire-alarm" id="security-fire-alarm-yes" value="yes">
+                            <label class="form-check-label" for="security-fire-alarm-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                        </div>
+                    </div>
+                    
+                    <div id="security-fire-alarm-details-container" class="form-group hidden">
+                        <label for="security-fire-alarm-details" data-lang-en="Fire Alarm Details" data-lang-ar="تفاصيل إنذار الحريق">Fire Alarm Details</label>
+                        <textarea id="security-fire-alarm-details" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-lang-en="Reported Items" data-lang-ar="العناصر المبلغ عنها">Reported Items</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="security-reported-items" id="security-reported-items-no" value="no" checked>
+                            <label class="form-check-label" for="security-reported-items-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="security-reported-items" id="security-reported-items-yes" value="yes">
+                            <label class="form-check-label" for="security-reported-items-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                        </div>
+                    </div>
+                    
+                    <div id="security-reported-items-details-container" class="hidden">
+                        <div class="form-group">
+                            <label for="security-item-details" data-lang-en="Item Details" data-lang-ar="تفاصيل العنصر">Item Details</label>
+                            <textarea id="security-item-details" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="security-reporter-info" data-lang-en="Reporter Information" data-lang-ar="معلومات المبلغ">Reporter Information</label>
+                            <textarea id="security-reporter-info" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" data-lang-en="Submit Security Report" data-lang-ar="تقديم تقرير الأمن">Submit Security Report</button>
+                        <button type="button" class="btn btn-secondary" onclick="activateTab('dashboard')" data-lang-en="Cancel" data-lang-ar="إلغاء">Cancel</button>
+                        <button type="button" class="btn btn-info" onclick="downloadSecurityReportPdf()" data-lang-en="Download PDF" data-lang-ar="تنزيل PDF">Download PDF</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- CCTV Report Tab -->
+        <div id="cctv-report" class="tab-content">
+            <div class="form-container">
+                <h3 data-lang-en="CCTV Report" data-lang-ar="تقرير كاميرات المراقبة">CCTV Report</h3>
+                <form id="cctv-report-form">
+                    <input type="hidden" id="cctv-report-type" value="cctv">
+                    
+                    <div class="form-group">
+                        <label for="cctv-report-date" data-lang-en="Date" data-lang-ar="التاريخ">Date</label>
+                        <input type="date" id="cctv-report-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cctv-report-time" data-lang-en="Time" data-lang-ar="الوقت">Time</label>
+                        <input type="time" id="cctv-report-time" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cctv-report-shift" data-lang-en="Shift" data-lang-ar="الوردية">Shift</label>
+                        <select id="cctv-report-shift" class="form-control">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cctv-officer-name" data-lang-en="Security Officer" data-lang-ar="ضابط الأمن">Security Officer</label>
+                        <input type="text" id="cctv-officer-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-lang-en="Cameras Functioning Properly" data-lang-ar="الكاميرات تعمل بشكل صحيح">Cameras Functioning Properly</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-cameras-functioning" id="cctv-cameras-functioning-yes" value="yes" checked>
+                            <label class="form-check-label" for="cctv-cameras-functioning-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-cameras-functioning" id="cctv-cameras-functioning-no" value="no">
+                            <label class="form-check-label" for="cctv-cameras-functioning-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                        </div>
+                    </div>
+                    
+                    <div id="cctv-camera-issues-container" class="form-group hidden">
+                        <label for="cctv-camera-issues" data-lang-en="Camera Issues" data-lang-ar="مشاكل الكاميرات">Camera Issues</label>
+                        <textarea id="cctv-camera-issues" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cctv-footage-reviewed" data-lang-en="Footage Reviewed" data-lang-ar="التسجيلات التي تمت مراجعتها">Footage Reviewed</label>
+                        <input type="text" id="cctv-footage-reviewed" class="form-control" placeholder="e.g., 08:00-16:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-lang-en="Incidents Observed" data-lang-ar="الحوادث الملاحظة">Incidents Observed</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-incidents-observed" id="cctv-incidents-observed-no" value="no" checked>
+                            <label class="form-check-label" for="cctv-incidents-observed-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-incidents-observed" id="cctv-incidents-observed-yes" value="yes">
+                            <label class="form-check-label" for="cctv-incidents-observed-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                        </div>
+                    </div>
+                    
+                    <div id="cctv-incident-details-container" class="hidden">
+                        <div class="form-group">
+                            <label for="cctv-incident-details" data-lang-en="Incident Details" data-lang-ar="تفاصيل الحادث">Incident Details</label>
+                            <textarea id="cctv-incident-details" class="form-control" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label data-lang-en="Footage Saved" data-lang-ar="تم حفظ التسجيل">Footage Saved</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cctv-footage-saved" id="cctv-footage-saved-no" value="no" checked>
+                                <label class="form-check-label" for="cctv-footage-saved-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cctv-footage-saved" id="cctv-footage-saved-yes" value="yes">
+                                <label class="form-check-label" for="cctv-footage-saved-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                            </div>
+                        </div>
+                        
+                        <div id="cctv-footage-location-container" class="form-group hidden">
+                            <label for="cctv-footage-location" data-lang-en="Footage Location" data-lang-ar="موقع حفظ التسجيل">Footage Location</label>
+                            <input type="text" id="cctv-footage-location" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cctv-storage-capacity" data-lang-en="Storage Capacity" data-lang-ar="سعة التخزين">Storage Capacity</label>
+                        <input type="text" id="cctv-storage-capacity" class="form-control" placeholder="e.g., 75% used">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label data-lang-en="Storage Adequate" data-lang-ar="سعة التخزين كافية">Storage Adequate</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-storage-adequate" id="cctv-storage-adequate-yes" value="yes" checked>
+                            <label class="form-check-label" for="cctv-storage-adequate-yes" data-lang-en="Yes" data-lang-ar="نعم">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cctv-storage-adequate" id="cctv-storage-adequate-no" value="no">
+                            <label class="form-check-label" for="cctv-storage-adequate-no" data-lang-en="No" data-lang-ar="لا">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" data-lang-en="Submit CCTV Report" data-lang-ar="تقديم تقرير كاميرات المراقبة">Submit CCTV Report</button>
+                        <button type="button" class="btn btn-secondary" onclick="activateTab('dashboard')" data-lang-en="Cancel" data-lang-ar="إلغاء">Cancel</button>
+                        <button type="button" class="btn btn-info" onclick="downloadCCTVReportPdf()" data-lang-en="Download PDF" data-lang-ar="تنزيل PDF">Download PDF</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Inspection Checklist Tab -->
+        <div id="inspection" class="tab-content">
+            <div class="form-container">
+                <h3 data-lang-en="Security Inspection Checklist" data-lang-ar="قائمة فحص التفتيش الأمني">Security Inspection Checklist</h3>
+                <form id="inspection-form">
+                    <div class="form-group">
+                        <label for="inspection-date" data-lang-en="Date" data-lang-ar="التاريخ">Date</label>
+                        <input type="date" id="inspection-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inspection-shift" data-lang-en="Shift" data-lang-ar="الوردية">Shift</label>
+                        <select id="inspection-shift" class="form-control">
+                            <option value="1st" data-lang-en="1st" data-lang-ar="الاولى">1st</option>
+                            <option value="2nd" data-lang-en="2nd" data-lang-ar="الثانية">2nd</option>
+                            <option value="3rd" data-lang-en="3rd" data-lang-ar="الثالثة">3rd</option>
+                        </select>
+                    </div>
+                    
+                    <div class="checklist-header">
+                        <div class="row">
+                            <div class="col-1">#</div>
+                            <div class="col-7" data-lang-en="Item" data-lang-ar="البند">Item</div>
+                            <div class="col-4" data-lang-en="Status" data-lang-ar="الحالة">Status</div>
+                        </div>
+                    </div>
+                    
+                    <div id="checklist-items">
+                        <!-- Checklist items will be dynamically populated here -->
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additional-findings" data-lang-en="Additional Findings" data-lang-ar="ملاحظات أخرى">Additional Findings</label>
+                        <textarea id="additional-findings" class="form-control" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" data-lang-en="Submit Inspection" data-lang-ar="تقديم التفتيش">Submit Inspection</button>
+                        <button type="button" class="btn btn-secondary" onclick="activateTab('dashboard')" data-lang-en="Cancel" data-lang-ar="إلغاء">Cancel</button>
+                        <button type="button" class="btn btn-info" onclick="downloadInspectionPdf()" data-lang-en="Download PDF" data-lang-ar="تنزيل PDF">Download PDF</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <!-- <div id="company-logo-container" class="hidden">
+        <img id="company-logo" src="assets/company_logo.jpg" alt="Company Logo">
+    </div>-->
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="lib/jspdf.umd.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pdf-export.js"></script>
+    <script src="js/logo-integration.js"></script>
+    <!--<script src="js/email-notification.js"></script>-->
+    <!--<script src="js/user-management.js"></script>-->
+    <script src="js/reports.js"></script>
+</body>
+</html>3
